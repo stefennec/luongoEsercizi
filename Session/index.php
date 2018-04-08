@@ -23,6 +23,8 @@ if((empty($username)) && ($password))
 $query=mysqli_query($conn,$str_sql);
 mysqli_close($conn);
 
+echo $query;
+
 
         if (mysqli_num_rows($query)==1)
         {
