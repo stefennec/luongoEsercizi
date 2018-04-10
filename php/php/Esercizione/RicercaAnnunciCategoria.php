@@ -74,7 +74,7 @@
       <?php
 
         $ricercaAnnuncio=$_POST['RicercaAnnunci'];
-        $seletto=$_POST['selezioneCategorie'];
+        $selettore=$_POST['selezioneCategorie'];
         echo $ricercaAnnuncio;
 
         $conn=mysqli_connect(filehost,"stefanophp7", "3pasquaman3", "my_stefanophp7");
