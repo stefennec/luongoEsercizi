@@ -93,6 +93,8 @@
   $nomeSQL=$_POST['nome'];
   $cognomeSQL=$_POST['cognome'];
 
+  //$token=crypt($email,"a caso salt");
+
   $conn=mysqli_connect(localhost,"stefanophp7", "3pasquaman3", "my_stefanophp7");
   $str_sql="SELECT * FROM Tusers WHERE Email='$emailSQL'";
 
@@ -108,8 +110,8 @@
 
   else {
     echo "<br>";
-
-    $str_sql2="INSERT INTO `Tusers`(`UserID`, `Username`, `Password`, `Email`, `Cognome`, `Nome`, `RegistrazioneConfermata`, `Token`) VALUES (NULL,0,'$passwordSQL','$emailSQL','$cognomeSQL','$nomeSQL','0','da Costruire')";
+    $token=crypt($emailSQL,"3f5g6h");
+    $str_sql2="INSERT INTO `Tusers`(`UserID`, `Username`, `Password`, `Email`, `Cognome`, `Nome`, `RegistrazioneConfermata`, `Token`) VALUES (NULL,0,'$passwordSQL','$emailSQL','$cognomeSQL','$nomeSQL','0','$token')";
     $query2=mysqli_query($conn,$str_sql2);
 
     //invio Mail
@@ -135,7 +137,7 @@
     </tr>
     </table>
     <h3>Per confermare la registrazione clicca qua</h3>
-    <a href='https://www.google.it'>Conferma Registrazione</a>
+    <a href='http://stefanophp7.altervista.org/Php_Avanzato/registrazioneConfermata.php?Token=$token'>Conferma Registrazione</a>
     </body>
     </html>
     ";
