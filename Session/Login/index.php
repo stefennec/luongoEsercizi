@@ -1,18 +1,49 @@
 <?php
 
-echo "<h1>CIAO</h1>";
-
-
-//il modulo del login prevede che:
-
-//EMAIL e PASSWORD  CORRETTE
-
-//CONTROLLO REGISTRAZIONE confermata
+$emailSQL=$_POST['emailForm'];
+$passwordSQL=$_POST['passwordForm'];
 
 
 
+if (!empty($emailSQL)) {
+  $conn=mysqli_connect("localhost","pasquaman", "3P@squaman3", "Luongo");
+  $strSQL="SELECT * FROM `Tusers` WHERE `Email`='$emailSQL' AND `Password`='$passwordSQL'";
+  $query=mysqli_query($conn,$strSQL);
+  $numeroRecord=mysqli_num_rows($query);
+  $row=mysqli_fetch_assoc($query);
+  $confermaRegistrazione=$row['RegistrazioneConfermata'];
+
+  echo $strSQL;
+
+
+
+    if ($numeroRecord==0) {
+      echo("Devi prima registrarti");
+      mysqli_close($conn);
+    }
+    else {
+      if ($confermaRegistrazione==0) {
+        echo('devi confermare la tua email');
+        return;
+        mysqli_close($conn);
+      }
+      else {
+        header("location: areaRiservata.php");
+        return;
+        mysqli_close($conn);
+      }
+    }
+}
 
  ?>
+
+
+
+
+
+
+
+
 
  <!DOCTYPE html>
  <html lang="en" dir="ltr">
@@ -24,8 +55,8 @@ echo "<h1>CIAO</h1>";
 
      function FaseInput(){
 
-     emailString=document.getElementById("email").value;
-     passwordString=document.getElementById("password").value;
+     emailString=document.getElementById("emailForm").value;
+     passwordString=document.getElementById("passwordForm").value;
      indiceChiocciola=emailString.indexOf("@");
      lunghezzaMail=emailString.length;
      lunghezzaPassword=passwordString.length;
@@ -51,7 +82,7 @@ echo "<h1>CIAO</h1>";
      function eseguiRegistrati(){
        FaseInput();
        if (errore==false) {
-         esercizio_Email.submit();
+         loginForm.submit();
        }
 
      }
@@ -60,12 +91,16 @@ echo "<h1>CIAO</h1>";
      </script>
    </head>
    <body>
+
+
+
+
      <div class="container">
-       <form class="form-group" name="loginForm" id="loginForm" action="login.php" method="post">
+       <form class="form-group" name="loginForm" id="loginForm" action="index.php" method="post">
          <h3>Email:</h3>
-         <input type="text" id="email" name="email" value="" placeholder="Inserisci Email"><label id="erroreEmail"></label>
+         <input type="text" id="emailForm" name="emailForm" value="" placeholder="Inserisci Email"><label id="erroreEmail"></label>
          <h3>Password:</h3>
-         <input type="text" id="password" name="password" value="" placeholder="Inserisci Password"><label id="errorePassword"></label>
+         <input type="text" id="passwordForm" name="passwordForm" value="" placeholder="Inserisci Password"><label id="errorePassword"></label>
          <br>
          <br>
          <h3>Registrati:</h3>
