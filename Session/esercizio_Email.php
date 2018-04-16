@@ -111,7 +111,7 @@
   else {
     echo "<br>";
     $token=crypt($emailSQL,"3f5g6h");
-    $str_sql2="INSERT INTO `Tusers`(`UserID`, `Username`, `Password`, `Email`, `Cognome`, `Nome`, `RegistrazioneConfermata`, `Token`) VALUES (NULL,0,'$passwordSQL','$emailSQL','$cognomeSQL','$nomeSQL','0','$token')";
+    $str_sql2="INSERT INTO `Tusers`(`UserID`, `Username`, `Password`, `Email`, `Cognome`, `Nome`, `RegistrazioneConfermata`, `Token`, `FilePathImageAvatar`) VALUES (NULL,0,'$passwordSQL','$emailSQL','$cognomeSQL','$nomeSQL','0','$token',NULL)";
     $query2=mysqli_query($conn,$str_sql2);
 
     //invio Mail
@@ -180,6 +180,9 @@
       <h3>Registrati:</h3>
       <button type="button" name="button" class="btn btn-info" onclick="eseguiRegistrati()">Registrati</button>
     </form>
+
+
+
   </div>
 
 
