@@ -59,7 +59,7 @@
         <td><img src=".$row['Foto2']." height=250 width=250></td>
         </tr>
 
-        
+
         "
 
 
